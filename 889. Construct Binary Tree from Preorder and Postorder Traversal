@@ -1,0 +1,36 @@
+class Solution {
+    static int index;
+    static HashMap<Integer,Integer> map = new HashMap<>();
+    public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
+        if(preorder.length != postorder.length) return null;
+        index = 0;
+        for(int i=0;i<postorder.length;i++){
+            map.put(postorder[i],i);
+        }
+        TreeNode root = Solve(preorder,postorder,0,postorder.length-1);
+        return root;
+    }
+    
+    public TreeNode Solve(int[] preorder, int[] postorder, int start, int end){
+        if(index >= postorder.length || start > end ){
+            return null;
+        }
+        
+        TreeNode root = new TreeNode(preorder[index++]);
+        
+        if(start == end || index >= postorder.length){
+            return root;
+        }
+        
+        
+        
+        int mid = map.get(preorder[index]);
+        
+        if(mid<=end){
+            root.left = Solve(preorder,postorder,start,mid);
+            root.right = Solve(preorder,postorder,mid+1,end-1);
+        }
+        
+        return root;
+    }
+}

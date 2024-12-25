@@ -1,0 +1,18 @@
+class Solution {
+    public int maximumGap(int[] nums) {
+        //base case
+        if(nums.length == 1) return 0;
+        //sort array
+        Arrays.sort(nums);
+
+        //case 1
+        //iterating from left to right
+        int max_gap = Integer.MIN_VALUE;
+        for(int i = 0; i < nums.length - 1; i++) {
+            int diff = nums[i + 1] - nums[i];
+            max_gap = Math.max(max_gap, diff);
+        }
+
+        return max_gap;
+    }
+}

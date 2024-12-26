@@ -1,0 +1,45 @@
+class Solution {
+    public void rotate(int[][] matrix) {
+        //transpose the matrix
+        transpose(matrix);
+
+        //mirror conversion
+        int n = matrix.length;
+        int[][] new_mat = new int[n][n];
+
+        int row = 0;
+        for(int i = 0; i < n; i++) {
+            int col = n - 1;
+            for(int j = 0; j < n; j++) {
+                new_mat[i][j] = matrix[row][col];
+                col = col - 1; 
+            }
+            row = row + 1;
+        }
+
+        //put the element to new_mat to matrix
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                matrix[i][j] = new_mat[i][j];
+            }
+        }
+    }
+
+    private void transpose(int[][] matrix) {
+        int n = matrix.length;
+        int[][] new_mat = new int[n][n];
+ 
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                new_mat[i][j] = matrix[j][i];
+            }
+        }
+
+        //put the element of new_mat to matrix
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                matrix[i][j] = new_mat[i][j];
+            }
+        }
+    }
+}

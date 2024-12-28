@@ -1,0 +1,28 @@
+class Solution {
+    public int[] pivotArray(int[] nums, int pivot) {
+        List<Integer> list = new ArrayList<>();
+        //put the element with value less than the pivot in the list
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] < pivot) {
+                list.add(nums[i]);
+            }
+        }
+
+        //put the element with value equal to pivot in the list
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] == pivot) {
+                list.add(nums[i]);
+            }
+        }
+
+        //put the element with value greater than the pivot in the list
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] > pivot) {
+                list.add(nums[i]);
+            }
+        }
+
+        //return the list after converting into array
+        return list.stream().mapToInt(Integer::intValue).toArray();
+    }
+}

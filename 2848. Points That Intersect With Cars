@@ -1,0 +1,24 @@
+class Solution {
+    public int numberOfPoints(List<List<Integer>> nums) {
+        int[] parkedCars = getParkedCars(nums);
+        int points = 0, coverage = 0;
+        for(int i = 1; i <= 100; i++) {
+            coverage += parkedCars[i];
+            if(coverage > 0) {
+                points++;
+            }
+        }
+
+        return points;
+    }
+
+    //Helper Function
+    private int[] getParkedCars(List<List<Integer>> cars) {
+        int[] parkedCars = new int[102];
+        for(List<Integer> car : cars) {
+            parkedCars[car.get(0)]++;
+            parkedCars[car.get(1) + 1]--;
+        }
+        return parkedCars;
+    }
+}

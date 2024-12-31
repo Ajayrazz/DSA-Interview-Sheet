@@ -1,0 +1,40 @@
+class Solution {
+    public int splitArray(int[] nums, int k) {
+        int low = 0, high = 0;
+
+        for(int i : nums) {
+            if(i > low) {
+                low = i;
+            }
+            high += i;
+        }
+
+        while(low <= high) {
+            int mid = low + (high - low) / 2;
+            int split = calculate(nums, mid);
+
+            if(split > k) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return low;
+    }
+
+    //Helper function
+    private int calculate(int[] nums, int mid) {
+        int sum = 0;
+        int count = 1;
+
+        for(int i : nums) {
+            if(sum + i > mid) {
+                count++;
+                sum = i;
+            } else {
+                sum += i;
+            }
+        }
+        return count;
+    }
+}

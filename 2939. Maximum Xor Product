@@ -1,0 +1,55 @@
+class Solution {
+    long M = 1000000000+7;
+
+    public int maximumXorProduct(long a, long b, int n) {
+        
+        long aXORx = 0;
+        long bXORx = 0;
+
+        //from 49 the bit to the n bit we put bit as it is.
+        for(int i = 49;i>=n;i--)
+        {
+            boolean aSet = ((a >> i) & 1)> 0;  //finding the ith bit of a.
+            boolean bSet = ((b >> i) & 1) > 0;  //finding the ith bit of b.
+
+            if(aSet == true)
+            {
+                aXORx ^= (1L << i);
+            } 
+
+            if(bSet == true)
+            {
+                bXORx ^= (1L << i);
+            }
+        }
+
+        //from (n-1)th to 0th
+        for(int i = (n-1) ; i >= 0 ;i--)
+        {
+            boolean aSet = ((a >> i) & 1)> 0;  //finding the ith bit of a.
+            boolean bSet = ((b >> i) & 1) > 0;  //finding the ith bit of b.
+
+            //if in both a and b position of i the binary number is same
+            if(aSet == bSet)
+            {
+                aXORx ^= (1L << i);
+                bXORx ^= (1L << i);
+                continue;
+            }
+
+            if(aXORx > bXORx)
+            {
+                bXORx ^= (1L << i);
+            }
+            else
+            {
+                aXORx ^= (1L << i);
+            }
+        }
+
+        aXORx %= M;
+        bXORx %= M;
+
+        return  (int)(aXORx * bXORx % M);
+    }
+}

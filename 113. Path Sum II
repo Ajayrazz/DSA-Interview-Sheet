@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> allPath = new ArrayList<>();
+        List<Integer> currentPath = new ArrayList<>();
+
+        findPathRecursive(root, targetSum, currentPath, allPath);
+        return allPath;
+    }
+
+    private void findPathRecursive(TreeNode root, int targetSum, List<Integer> currentPath, List<List<Integer>> allPath) {
+        if(root == null) return;
+
+        currentPath.add(root.val);
+
+        if(root.val == targetSum && root.left == null && root.right == null) {
+            allPath.add(new ArrayList<Integer>(currentPath));
+        }
+        else {
+            //Traverse the left sub-tree
+            findPathRecursive(root.left, targetSum - root.val, currentPath, allPath);
+            //Traverse the right sub-tree
+            findPathRecursive(root.right, targetSum - root.val, currentPath, allPath);
+        }
+
+        currentPath.remove(currentPath.size() - 1);
+    }
+}

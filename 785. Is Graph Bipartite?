@@ -1,0 +1,29 @@
+class Solution {
+
+    public boolean validColouring(int[][] graph, int[] color, int node, int col) {
+        if(color[node] != 0) {
+            return color[node] == col;
+        }
+
+        color[node] = col;
+        for(int neigh : graph[node]) {
+            if(!validColouring(graph, color, neigh, -col)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isBipartite(int[][] graph) {
+        int n = graph.length;
+        int[] color = new int[n];
+
+        for(int node = 0; node < n; node++) {
+            if(color[node] == 0 && !validColouring(graph, color, node, 1)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}

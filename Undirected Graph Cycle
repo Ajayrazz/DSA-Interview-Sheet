@@ -1,0 +1,35 @@
+class Solution {
+    
+    //Helper Function
+    public boolean checkForCycle(int node, int parent, boolean vis[], ArrayList<ArrayList<Integer>> adj) {
+        vis[node] = true;
+        //traverse through all adjacent node
+        for(Integer it : adj.get(node)) {
+            if(vis[it] == false) {
+                if(checkForCycle(it, node, vis, adj) == true) {
+                    return true;
+                }
+            }
+            else if(it != parent) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // Function to detect cycle in an undirected graph.
+    public boolean isCycle(ArrayList<ArrayList<Integer>> adj) {
+        // Code here
+        int v = adj.size();
+        boolean vis[] = new boolean[v];
+        
+        for(int i = 0; i < v; i++) {
+            if(vis[i] == false) {
+                if(checkForCycle(i, -1, vis, adj)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}

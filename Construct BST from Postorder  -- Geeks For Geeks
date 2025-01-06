@@ -1,0 +1,33 @@
+class GFG {
+    public static int ind;
+    public static Node make(int post[], int key, int Min, int Max) {
+        if (ind < 0) return null; 
+
+        Node root = null; 
+
+        if (key > Min && key < Max) {
+            root = new Node(key); 
+
+            if (ind - 1 < 0)
+                return root;
+
+            ind--; // decrement index
+
+            if (ind >= 0) {
+                root.right =
+                    make(post, post[ind], key, Max);
+                root.left =
+                    make(post, post[ind], Min, key); 
+            }
+        }
+        return root;
+    }
+
+    public static Node constructTree(int post[], int n) {
+        ind = n - 1; 
+
+        Node root = make(post, post[ind], Integer.MIN_VALUE,
+                         Integer.MAX_VALUE); 
+        return root;
+    }
+}

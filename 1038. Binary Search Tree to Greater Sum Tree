@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+ //We are having Four Approach Solve this problem
+ //Approach 1 : InOrder Traversal( Brute Force )
+ //Approach 2 : Reverse InOrder Traversal
+ //Approach 3 : Iterative Reverse InOrder Traversal
+ //Approach 4 : Morris Traversal
+
+class Solution {
+    public TreeNode bstToGst(TreeNode root) {
+        int[] nodeSum = new int[1];
+        bstToGstHelper(root, nodeSum);
+        return root;
+    }
+
+    private void bstToGstHelper(TreeNode root, int[] nodeSum){
+        if(root == null){
+            return;
+        }
+
+        bstToGstHelper(root.right, nodeSum);
+        nodeSum[0] += root.val;
+        root.val = nodeSum[0];
+        bstToGstHelper(root.left, nodeSum);
+    }
+}

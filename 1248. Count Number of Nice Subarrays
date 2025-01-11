@@ -1,0 +1,18 @@
+class Solution {
+    public int numberOfSubarrays(int[] nums, int k) {
+        int currentSum = 0, subarray = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(currentSum, 1);
+
+        for(int i = 0; i < nums.length; i++){
+            currentSum += nums[i] % 2;
+            if(map.containsKey(currentSum - k)){
+                subarray = subarray + map.get(currentSum - k);
+            }
+
+            map.put(currentSum, map.getOrDefault(currentSum, 0) + 1);
+        }
+
+        return subarray;
+    }
+}

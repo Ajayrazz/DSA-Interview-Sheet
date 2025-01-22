@@ -1,0 +1,21 @@
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for(int element : arr){
+            if(k > 0){
+                minHeap.offer(element);
+                k--;
+            }
+            else if(Math.abs(minHeap.peek() - x) > Math.abs(element - x)){
+                minHeap.poll();
+                minHeap.offer(element);
+            }
+        }
+
+        List<Integer> result = new ArrayList<>();
+        while(!minHeap.isEmpty()){
+            result.add(minHeap.poll());
+        }
+        return result;
+    }
+}

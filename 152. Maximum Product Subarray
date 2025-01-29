@@ -1,0 +1,20 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        int result = Integer.MIN_VALUE;
+        for(int num : nums){
+            result = Math.max(result, num);
+        }
+
+        int currentMax = 1, currentMin = 1;
+
+        for(int num : nums){
+            int temp = currentMax * num;
+            currentMax = Math.max(temp, Math.max(currentMin * num, num));
+            currentMin = Math.min(temp, Math.min(currentMin * num, num));
+
+            result = Math.max(result, currentMax);
+        }
+
+        return result;
+    }
+}

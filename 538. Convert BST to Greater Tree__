@@ -1,0 +1,41 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode convertBST(TreeNode root) {
+        //Base Case
+        if(root == null){
+            return root;
+        }
+
+        build_gt(root, 0);
+        return root;
+    }
+
+    //Function to find the build the greater tree
+    private int build_gt(TreeNode root, int current_value){
+        //Base Case
+        if(root == null){
+            return current_value;
+        }
+
+        current_value = root.val + build_gt(root.right, current_value);
+        root.val = current_value;
+        //calling the left subtree
+        current_value = build_gt(root.left, current_value);
+
+        return current_value;
+    }
+}

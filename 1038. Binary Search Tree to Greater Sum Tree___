@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode bstToGst(TreeNode root) {
+        //Base Case
+        if(root == null){
+            return root;
+        }
+
+        build_GST(root, 0);
+        return root;
+    }
+
+    //Function to build the Greater Sum Tree
+    private int build_GST(TreeNode root, int current_value){
+        //Base case
+        if(root == null){
+            return current_value;
+        }
+
+        current_value = root.val + build_GST(root.right, current_value);
+        root.val = current_value;
+        current_value = build_GST(root.left, current_value);
+
+        return current_value;
+    }
+}

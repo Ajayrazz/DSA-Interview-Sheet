@@ -1,0 +1,54 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode increasingBST(TreeNode root) {
+        //Base Case
+        if(root == null){
+            return root;
+        }
+
+        List<Integer> list = new ArrayList<>();
+        //store all the element of root by using inorder traversal
+        inorder(root, list);
+
+        //recall the building increasing order search tree
+        return build_IOS(list);
+    }
+
+    //Function for inorder traversal of binary tree
+    private void inorder(TreeNode root, List<Integer> list){
+        //Base Case
+        if(root == null){
+            return;
+        }
+        inorder(root.left, list);
+        list.add(root.val);
+        inorder(root.right, list);
+    }
+
+    //Function for making increasing order search tree
+    private TreeNode build_IOS(List<Integer> list){
+        //Base Case
+        if(list.size() == 0){
+            return null;
+        }
+
+        TreeNode root = new TreeNode(list.remove(0));
+        root.right = build_IOS(list);
+
+        return root;
+    }
+}
